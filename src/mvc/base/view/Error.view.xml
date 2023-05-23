@@ -1,0 +1,17 @@
+<mvc:View
+	height="100%"
+	displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc"
+	busyIndicatorDelay="0"
+	xmlns="sap.m"
+>
+	<Page>
+		<MessagePage
+			id="idMessagePage"
+			showHeader="false"
+			text="Error"
+			icon="sap-icon://error"
+			description="{ErrorModel>/Text}"
+		/>
+	</Page>
+</mvc:View>

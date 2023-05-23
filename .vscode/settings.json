@@ -1,0 +1,112 @@
+{
+	"cSpell.words": [
+		"ICRUD",
+		"insidettrack",
+		"navigations",
+		"odata"
+	],
+	"cSpell.allowCompoundWords": true,
+	"cSpell.enabledLanguageIds": [
+		"html",
+		"javascript",
+		"markdown",
+		"plaintext",
+		"text",
+		"typescript",
+		"yaml",
+		"yml",
+		"properties"
+	],
+	"eslint.validate": [
+		"javascript",
+		"typescript"
+	],
+	"eslint.format.enable": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"source.addMissingImports": true,
+		"source.organizeImports": true
+	},
+	"editor.insertSpaces": false,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.detectIndentation": true,
+	"editor.formatOnSave": true,
+	"files.trimTrailingWhitespace": true,
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.implementationsCodeLens.enabled": true,
+	"typescript.referencesCodeLens.showOnAllFunctions": true,
+	"typescript.referencesCodeLens.enabled": false,
+	"xmlTools.splitAttributesOnFormat": true,
+	"xmlTools.enforcePrettySelfClosingTagOnFormat": true,
+	"auto-close-tag.activationOnLanguage": [
+		"xml"
+	],
+	"auto-close-tag.enableAutoCloseSelfClosingTag": true,
+	"[xml]": {
+		"editor.defaultFormatter": "iljapostnovs.ui5plugin"
+	},
+	"redhat.telemetry.enabled": false,
+	"ui5.plugin.addInheritedPropertiesAndAggregations": false,
+	"ui5.plugin.addTagAttributes": false,
+	"ui5.plugin.addI18nTextLengthLimitation": false,
+	"ui5.plugin.askUserToConfirmI18nId": false,
+	"ui5.plugin.insertControllerModule": "com/insidettrack/demo/mvc/controller/BaseController",
+	"todohighlight.keywords": [
+		{
+			"text": "NOTE:",
+			"color": "white",
+			"backgroundColor": "#315b25",
+			"isWholeLine": true
+		},
+		{
+			"text": "HACK:",
+			"color": "white",
+			"backgroundColor": "#c7c526",
+			"isWholeLine": true
+		},
+		{
+			"text": "TODO:",
+			"color": "white",
+			"backgroundColor": "#b668fc",
+			"isWholeLine": true
+		},
+		{
+			"text": "OPTIMIZE:",
+			"color": "white",
+			"backgroundColor": "#6a6dec",
+			"isWholeLine": true
+		},
+		{
+			"text": "FIXME:",
+			"color": "white",
+			"backgroundColor": "#cb5a56",
+			"isWholeLine": true
+		},
+		{
+			"text": "BUG:",
+			"color": "white",
+			"backgroundColor": "#ca3a27",
+			"isWholeLine": true
+		}
+	],
+	"hediet.vscode-drawio.theme": "atlas",
+	"plantuml.commandArgs": [
+		"-DPLANTUML_LIMIT_SIZE=999999"
+	],
+	"[plantuml]": {
+		"editor.defaultFormatter": "jebbs.plantuml"
+	},
+	"ui5.plugin.codeGeneratorStrategy": "ES6",
+	"ui5.plugin.generateXMLFileInterfacesOnSave": true,
+	"ui5.plugin.TSODataInterfacesFetchingData": {
+		"url": "http://localhost:8080/sap/opu/odata/sap/ORDERING_SRV/$metadata"
+	},
+	"ui5.plugin.TSODataInterfacesPath": "./typedef/ODataModelTypes.d.ts",
+	"ui5.plugin.umlGenerationPath": "../doc/ClassDiagram.pu",
+	"ui5.plugin.XMLFileInterfacePath": "./typedef/ViewIds.d.ts",
+	"template-string-converter.autoRemoveTemplateString": true,
+	"template-string-converter.quoteType": "both"
+}

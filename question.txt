@@ -1,0 +1,13 @@
+Where this method should be located?
+```typescript
+async updatePurchaseOrderItem(mOrderItem: PurchaseOrderItem) {
+	const mAssembledOrderItem = this._assembleOrderItem(mOrderItem);
+
+	const sOrderItemPath = this._oODataModel.createKey("/PurchaseOrderItems", mAssembledOrderItem);
+	await this._oODataModel.updateAsync(sOrderItemPath, mAssembledOrderItem);
+}
+```
+* PurchaseOrderItem.controller
+* PurchaseOrderItemModel
+* PurchaseOrderItem.view
+* manifest.json

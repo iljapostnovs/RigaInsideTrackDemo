@@ -1,0 +1,11 @@
+<mvc:View
+	controllerName="com.insidettrack.demo.mvc.detail.controller.Detail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	busyIndicatorDelay="0"
+>
+	<Page backgroundDesign="Transparent">
+		<Text text="Hello World!"/>
+	</Page>
+</mvc:View>

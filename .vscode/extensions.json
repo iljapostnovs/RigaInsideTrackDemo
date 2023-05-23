@@ -1,0 +1,19 @@
+{
+	"recommendations": [
+		"dbaeumer.vscode-eslint",
+		"iljapostnovs.ui5plugin",
+		"streetsidesoftware.code-spell-checker",
+		"ms-vsliveshare.vsliveshare",
+		"esbenp.prettier-vscode",
+		"formulahendry.auto-rename-tag",
+		"eamodio.gitlens",
+		"redhat.vscode-xml",
+		"DotJoshJohnson.xml",
+		"wayou.vscode-todo-highlight",
+		"usernamehw.errorlens",
+		"hediet.vscode-drawio",
+		"jebbs.plantuml",
+		"redhat.vscode-yaml",
+		"meganrogge.template-string-converter"
+	]
+}

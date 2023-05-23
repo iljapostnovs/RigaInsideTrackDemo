@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "es2022",
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"preserveConstEnums": true,
+		"sourceMap": false,
+		"noEmit": true,
+		"allowJs": true,
+		"checkJs": false,
+		"declaration": false,
+		"declarationMap": false,
+		"strict": true,
+		"allowSyntheticDefaultImports": true,
+		"types": [
+			"@sapui5/ts-types-esm",
+			"jquery"
+		],
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"noImplicitOverride": true,
+		"outDir": "./dist",
+		"composite": false,
+		"baseUrl": "./",
+		"paths": {
+			"com/insidettrack/demo/*": [
+				"./src/*"
+			]
+		}
+	},
+	"include": [
+		"./src/**/*"
+	]
+}

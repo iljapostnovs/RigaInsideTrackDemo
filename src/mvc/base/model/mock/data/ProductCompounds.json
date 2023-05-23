@@ -1,0 +1,54 @@
+{
+	"d": {
+		"results": [
+			{
+				"ProductID": "25",
+				"CompoundID": "1",
+				"CompoundName": "Sugar",
+				"Unit": "g",
+				"Price": "0.01",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "25",
+				"CompoundID": "2",
+				"CompoundName": "Milk",
+				"Unit": "ml",
+				"Price": "0.02",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "25",
+				"CompoundID": "3",
+				"CompoundName": "Muffin",
+				"Unit": "PC",
+				"Price": "1.09",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "51",
+				"CompoundID": "1",
+				"CompoundName": "Salmon",
+				"Unit": "g",
+				"Price": "0.05",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "51",
+				"CompoundID": "2",
+				"CompoundName": "Tomato",
+				"Unit": "g",
+				"Price": "0.02",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "51",
+				"CompoundID": "3",
+				"CompoundName": "Salad Leaf",
+				"Unit": "PC",
+				"Price": "0.30",
+				"Currency": "EUR"
+			}
+		]
+	}
+}

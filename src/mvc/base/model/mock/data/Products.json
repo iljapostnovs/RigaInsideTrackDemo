@@ -1,0 +1,41 @@
+{
+	"d": {
+		"results": [
+			{
+				"ProductID": "25",
+				"ProductName": "Cup of coffee",
+				"Unit": "PC",
+				"Price": "3.10",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "23",
+				"ProductName": "Kellogg's",
+				"Unit": "PC",
+				"Price": "2.35",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "26",
+				"ProductName": "Banana",
+				"Unit": "KG",
+				"Price": "0.99",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "50",
+				"ProductName": "Apple",
+				"Unit": "KG",
+				"Price": "0.50",
+				"Currency": "EUR"
+			},
+			{
+				"ProductID": "51",
+				"ProductName": "Salad",
+				"Unit": "KG",
+				"Price": "6.10",
+				"Currency": "EUR"
+			}
+		]
+	}
+}

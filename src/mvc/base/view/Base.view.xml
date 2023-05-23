@@ -1,0 +1,16 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	displayBlock="true"
+	busyIndicatorDelay="0"
+	busy="{SupportModel>/AppViewBusy}"
+>
+	<App id="idApp">
+		<f:FlexibleColumnLayout
+			id="idFlexibleColumnLayout"
+			layout="{SupportModel>/Layout}"
+			backgroundDesign="Translucent"
+		/>
+	</App>
+</mvc:View>

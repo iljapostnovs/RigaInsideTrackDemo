@@ -1,0 +1,170 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZMOCK_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="Order" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderID"/>
+                </Key>
+                <Property Name="OrderID" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Order ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created at" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+				<Property Name="State" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="OrderItems" Relationship="ZMOCK_SRV.Order_OrderItem" FromRole="FromRole_Order_OrderItem" ToRole="ToRole_Order_OrderItem"/>
+            </EntityType>
+            <EntityType Name="OrderItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderID"/>
+                    <PropertyRef Name="ProductID"/>
+                </Key>
+                <Property Name="OrderID" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Order ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created at" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Updated at" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+				<Property Name="State" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+				<Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:unit="Unit" sap:label="Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+				<NavigationProperty Name="Product" Relationship="ZMOCK_SRV.OrderItem_Product" FromRole="FromRole_OrderItem_Product" ToRole="ToRole_OrderItem_Product"/>
+				<NavigationProperty Name="OrderItemCompounds" Relationship="ZMOCK_SRV.OrderItem_Compound" FromRole="FromRole_OrderItem_Compound" ToRole="ToRole_OrderItem_Compound"/>
+			</EntityType>
+            <EntityType Name="OrderItemCompound" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="OrderID"/>
+                    <PropertyRef Name="ProductID"/>
+                    <PropertyRef Name="CompoundID"/>
+                </Key>
+                <Property Name="OrderID" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Order ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompoundID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Compound ID" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:unit="Unit" sap:label="Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+				<NavigationProperty Name="Compound" Relationship="ZMOCK_SRV.OrderItemCompound_Compound" FromRole="FromRole_OrderItemCompound_Compound" ToRole="ToRole_OrderItemCompound_Compound"/>
+			</EntityType>
+            <EntityType Name="Product" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductID"/>
+                </Key>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ProductName" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Product name" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="Unit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+				<Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="2" sap:unicode="false" sap:unit="Currency" sap:label="Price" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="ProductCompounds" Relationship="ZMOCK_SRV.Product_Compound" FromRole="FromRole_Product_Compound" ToRole="ToRole_Product_Compound"/>
+            </EntityType>
+            <EntityType Name="ProductCompound" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductID"/>
+                    <PropertyRef Name="CompoundID"/>
+                </Key>
+                <Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Product ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompoundID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Compound ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CompoundName" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Compound name" sap:creatable="false" sap:updatable="false"/>
+				<Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="2" sap:unicode="false" sap:unit="Currency" sap:label="Price" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Unit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+			</EntityType>
+
+            <Association Name="Order_OrderItem" sap:content-version="1">
+                <End Type="ZMOCK_SRV.Order" Multiplicity="1" Role="FromRole_Order_OrderItem"/>
+                <End Type="ZMOCK_SRV.OrderItem" Multiplicity="*" Role="ToRole_Order_OrderItem"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Order_OrderItem">
+                        <PropertyRef Name="OrderID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Order_OrderItem">
+                        <PropertyRef Name="OrderID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItem_Product" sap:content-version="1">
+                <End Type="ZMOCK_SRV.OrderItem" Multiplicity="1" Role="FromRole_OrderItem_Product"/>
+                <End Type="ZMOCK_SRV.Product" Multiplicity="1" Role="ToRole_OrderItem_Product"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OrderItem_Product">
+                        <PropertyRef Name="ProductID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OrderItem_Product">
+                        <PropertyRef Name="ProductID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Product_Compound" sap:content-version="1">
+                <End Type="ZMOCK_SRV.Product" Multiplicity="1" Role="FromRole_Product_Compound"/>
+                <End Type="ZMOCK_SRV.ProductCompound" Multiplicity="*" Role="ToRole_Product_Compound"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Product_Compound">
+                        <PropertyRef Name="ProductID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Product_Compound">
+                        <PropertyRef Name="ProductID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItemCompound_Compound" sap:content-version="1">
+                <End Type="ZMOCK_SRV.OrderItemCompound" Multiplicity="1" Role="FromRole_OrderItemCompound_Compound"/>
+                <End Type="ZMOCK_SRV.ProductCompound" Multiplicity="1" Role="ToRole_OrderItemCompound_Compound"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OrderItemCompound_Compound">
+                        <PropertyRef Name="ProductID"/>
+                        <PropertyRef Name="CompoundID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OrderItemCompound_Compound">
+                        <PropertyRef Name="ProductID"/>
+                        <PropertyRef Name="CompoundID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="OrderItem_Compound" sap:content-version="1">
+                <End Type="ZMOCK_SRV.OrderItem" Multiplicity="1" Role="FromRole_OrderItem_Compound"/>
+                <End Type="ZMOCK_SRV.OrderItemCompound" Multiplicity="*" Role="ToRole_OrderItem_Compound"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_OrderItem_Compound">
+						<PropertyRef Name="OrderID"/>
+						<PropertyRef Name="ProductID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_OrderItem_Compound">
+						<PropertyRef Name="OrderID"/>
+						<PropertyRef Name="ProductID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+
+            <EntityContainer Name="ZMOCK_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Orders" EntityType="ZMOCK_SRV.Order" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="OrderItems" EntityType="ZMOCK_SRV.OrderItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="Products" EntityType="ZMOCK_SRV.Product" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="ProductCompounds" EntityType="ZMOCK_SRV.ProductCompound" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+				<EntitySet Name="OrderItemCompounds" EntityType="ZMOCK_SRV.OrderItemCompound" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+				<AssociationSet Name="Order_OrderItemSet" Association="ZMOCK_SRV.Order_OrderItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Orders" Role="FromRole_Order_OrderItem"/>
+                    <End EntitySet="OrderItems" Role="ToRole_Order_OrderItem"/>
+                </AssociationSet>
+				<AssociationSet Name="OrderItem_ProductSet" Association="ZMOCK_SRV.OrderItem_Product" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrderItems" Role="FromRole_OrderItem_Product"/>
+                    <End EntitySet="Products" Role="ToRole_OrderItem_Product"/>
+                </AssociationSet>
+				<AssociationSet Name="Product_CompoundSet" Association="ZMOCK_SRV.Product_Compound" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Products" Role="FromRole_Product_Compound"/>
+                    <End EntitySet="ProductCompounds" Role="ToRole_Product_Compound"/>
+                </AssociationSet>
+				<AssociationSet Name="OrderItem_CompoundSet" Association="ZMOCK_SRV.OrderItem_Compound" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrderItems" Role="FromRole_OrderItem_Compound"/>
+                    <End EntitySet="OrderItemCompounds" Role="ToRole_OrderItem_Compound"/>
+                </AssociationSet>
+				<AssociationSet Name="OrderItemCompound_CompoundSet" Association="ZMOCK_SRV.OrderItemCompound_Compound" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="OrderItemCompounds" Role="FromRole_OrderItemCompound_Compound"/>
+                    <End EntitySet="ProductCompounds" Role="ToRole_OrderItemCompound_Compound"/>
+                </AssociationSet>
+				<FunctionImport Name="ApproveOrder" ReturnType="ZMOCK_SRV.Order" EntitySet="Orders" m:HttpMethod="POST">
+					<Parameter Name="OrderID" Type="Edm.Int32" Mode="In"/>
+				</FunctionImport>
+				<FunctionImport Name="RejectOrder" ReturnType="ZMOCK_SRV.Order" EntitySet="Orders" m:HttpMethod="POST">
+					<Parameter Name="OrderID" Type="Edm.Int32" Mode="In"/>
+				</FunctionImport>
+				<FunctionImport Name="PostOrder" ReturnType="ZMOCK_SRV.Order" EntitySet="Orders" m:HttpMethod="POST">
+					<Parameter Name="OrderID" Type="Edm.Int32" Mode="In"/>
+				</FunctionImport>
+            </EntityContainer>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://test/sap/opu/odata/sap/ZMOCK_SRV/$metadata"/>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://test/sap/opu/odata/sap/ZMOCK_SRV/$metadata"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

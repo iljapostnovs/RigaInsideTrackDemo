@@ -1,0 +1,31 @@
+specVersion: "3.0"
+metadata:
+    name: com.insidettrack.demo
+type: application
+resources:
+    configuration:
+        paths:
+            webapp: ./src
+builder:
+    resources:
+        excludes:
+            - "**/*.d.ts"
+    customTasks:
+        - name: ui5-tooling-transpile-task
+          afterTask: replaceVersion
+          configuration:
+              debug: true
+              removeConsoleStatements: true
+              transformAsyncToPromise: false
+              transformTypeScript: true
+              generateDts: false
+              excludes:
+                  - "**/*.d.ts"
+server:
+    customMiddleware:
+        - name: ui5-tooling-transpile-middleware
+          afterMiddleware: compression
+          configuration:
+              debug: true
+              transformAsyncToPromise: false
+              transformTypeScript: true

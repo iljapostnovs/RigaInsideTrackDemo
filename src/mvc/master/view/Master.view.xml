@@ -1,0 +1,39 @@
+<mvc:View
+	controllerName="com.insidettrack.demo.mvc.master.controller.Master"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	busyIndicatorDelay="0"
+>
+	<Page title="Orders">
+		<subHeader>
+			<Toolbar>
+				<SearchField placeholder="Search order..."/>
+			</Toolbar>
+		</subHeader>
+		<List
+			id="idListOrders"
+			includeItemInSelection="true"
+			growing="true"
+			growingScrollToLoad="true"
+			items="{ODataModel>/Orders}"
+			mode="SingleSelectMaster"
+			selectionChange="onListOrdersSelectionChange"
+		>
+			<ObjectListItem title="{ODataModel>OrderID}"/>
+		</List>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					icon="sap-icon://add"
+					text="Create Order"
+					press="onButtonCreateOrderPress"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>
