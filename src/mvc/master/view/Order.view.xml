@@ -11,11 +11,13 @@
 				<SearchField
 					id="idSearchField"
 					placeholder="Search order..."
+					value="{/Filters/SearchValue}"
 					search="onSearchFieldSearch"
 				/>
 				<DatePicker
 					id="idDatePicker"
 					change="onDatePickerChange"
+					dateValue="{/Filters/Date}"
 				/>
 			</Toolbar>
 		</subHeader>
