@@ -4,12 +4,11 @@
 	xmlns:f="sap.f"
 	displayBlock="true"
 	busyIndicatorDelay="0"
-	busy="{SupportModel>/AppViewBusy}"
 >
 	<App id="idApp">
 		<f:FlexibleColumnLayout
 			id="idFlexibleColumnLayout"
-			layout="{SupportModel>/Layout}"
+			layout="{BaseModel>/Layout}"
 			backgroundDesign="Translucent"
 		/>
 	</App>

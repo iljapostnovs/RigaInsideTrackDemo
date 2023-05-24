@@ -3,6 +3,7 @@ import UI5Element from "sap/ui/core/Element";
 import Controller from "sap/ui/core/mvc/Controller";
 import { ManifestModels } from "../../../typedef/ManifestModels";
 import Formatter from "./util/Formatter";
+import UIComponent from "sap/ui/core/UIComponent";
 
 /**
  * @namespace com.insidettrack.demo.mvc.base.controller
@@ -22,6 +23,10 @@ export default abstract class BaseController<ViewFragmentIds extends Record<stri
 
 	getBundle() {
 		return this.getModel("i18n")?.getResourceBundle() as ResourceBundle;
+	}
+
+	getRouter() {
+		return UIComponent.getRouterFor(this);
 	}
 }
 

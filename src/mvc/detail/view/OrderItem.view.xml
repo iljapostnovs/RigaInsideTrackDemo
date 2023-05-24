@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="com.insidettrack.demo.mvc.detail.controller.Detail"
+	controllerName="com.insidettrack.demo.mvc.detail.controller.OrderItem"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	displayBlock="true"

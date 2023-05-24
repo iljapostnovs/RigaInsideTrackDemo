@@ -1,0 +1,38 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog
+		id="idDialogOrderData"
+		title="Enter order data"
+	>
+		<VBox class="sapUiTinyMargin">
+			<Label text="Description"/>
+			<Input
+				id="idInputDescription"
+				maxLength="50"
+			/>
+			<Label text="Vendor"/>
+			<Input
+				id="idInputVendor"
+				maxLength="50"
+			/>
+		</VBox>
+		<buttons>
+			<Button
+				id="idButtonOk"
+				press="_onDialogButtonOkPress"
+				icon="sap-icon://accept"
+				type="Accept"
+				text="Create"
+			/>
+			<Button
+				id="idButtonClose"
+				press="_onDialogButtonClosePress"
+				icon="sap-icon://sys-cancel"
+				type="Reject"
+				text="Cancel"
+			/>
+		</buttons>
+	</Dialog>
+</c:FragmentDefinition>

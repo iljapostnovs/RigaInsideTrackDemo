@@ -75,14 +75,14 @@
 					"refreshAfterChange": false
 				}
 			},
-			"MasterModel": {
-				"type": "com.insidettrack.demo.mvc.master.model.MasterModel"
+			"OrderModel": {
+				"type": "com.insidettrack.demo.mvc.master.model.OrderModel"
 			},
-			"DetailModel": {
-				"type": "com.insidettrack.demo.mvc.detail.model.DetailModel"
+			"OrderItemModel": {
+				"type": "com.insidettrack.demo.mvc.detail.model.OrderItemModel"
 			},
-			"SupportModel": {
-				"type": "sap.ui.model.json.JSONModel"
+			"BaseModel": {
+				"type": "com.insidettrack.demo.mvc.base.model.BaseModel"
 			},
 			"ErrorModel": {
 				"type": "sap.ui.model.json.JSONModel"
@@ -109,17 +109,17 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "Master",
+					"name": "Order",
 					"target": [
-						"Master"
+						"Order"
 					]
 				},
 				{
-					"pattern": "Detail({ID})",
-					"name": "Detail",
+					"pattern": "OrderItem({ID})",
+					"name": "OrderItem",
 					"target": [
-						"Master",
-						"Detail"
+						"Order",
+						"OrderItem"
 					]
 				},
 				{
@@ -129,14 +129,14 @@
 				}
 			],
 			"targets": {
-				"Master": {
-					"viewName": "master.view.Master",
+				"Order": {
+					"viewName": "master.view.Order",
 					"viewLevel": 1,
 					"transition": "show",
 					"controlAggregation": "beginColumnPages"
 				},
-				"Detail": {
-					"viewName": "detail.view.Detail",
+				"OrderItem": {
+					"viewName": "detail.view.OrderItem",
 					"viewLevel": 2,
 					"controlAggregation": "midColumnPages"
 				},

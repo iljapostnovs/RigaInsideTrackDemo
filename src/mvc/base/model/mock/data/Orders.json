@@ -4,17 +4,23 @@
 			{
 				"OrderID": 1,
 				"CreatedAt": "\/Date(1560902400000)\/",
-				"State": "1"
+				"State": "1",
+				"Description": "Milk",
+				"Vendor": "Milk factory"
 			},
 			{
 				"OrderID": 2,
 				"CreatedAt": "\/Date(1560902400000)\/",
-				"State": "2"
+				"State": "2",
+				"Description": "Car",
+				"Vendor": "Audi"
 			},
 			{
 				"OrderID": 43,
 				"CreatedAt": "\/Date(1560902400000)\/",
-				"State": "3"
+				"State": "3",
+				"Description": "Vegetables",
+				"Vendor": "Farm"
 			}
 		]
 	}

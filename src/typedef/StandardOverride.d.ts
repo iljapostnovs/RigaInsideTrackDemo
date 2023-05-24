@@ -5,6 +5,7 @@ declare module "sap/ui/base/ManagedObject" {
 	import { ManifestModels } from "./ManifestModels";
 	export default interface ManagedObject {
 		getModel<T extends keyof ManifestModels>(sModelName?: T): ManifestModels[T];
+		getBinding<T extends Binding = Binding>(sName: string): T;
 	}
 }
 
@@ -25,3 +26,4 @@ declare module "sap/ui/model/json/JSONModel" {
 		getProperty<T>(sPath: string, oContext?: Context): T;
 	}
 }
+

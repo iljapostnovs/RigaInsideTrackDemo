@@ -1,0 +1,68 @@
+<mvc:View
+	controllerName="com.insidettrack.demo.mvc.master.controller.Order"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	displayBlock="true"
+	busyIndicatorDelay="0"
+>
+	<Page title="Orders">
+		<subHeader>
+			<Toolbar>
+				<SearchField
+					id="idSearchField"
+					placeholder="Search order..."
+					search="onSearchFieldSearch"
+				/>
+				<DatePicker
+					id="idDatePicker"
+					change="onDatePickerChange"
+				/>
+			</Toolbar>
+		</subHeader>
+		<List
+			id="idListOrders"
+			includeItemInSelection="true"
+			growing="true"
+			growingScrollToLoad="true"
+			items="{/Orders}"
+			mode="SingleSelectMaster"
+			selectionChange="onListOrdersSelectionChange"
+		>
+			<ObjectListItem
+				title="{Description}"
+				icon="sap-icon://document"
+			>
+				<attributes>
+					<ObjectAttribute
+						title="ID"
+						text="{OrderID}"
+					/>
+					<ObjectAttribute
+						title="Vendor"
+						text="{Vendor}"
+					/>
+					<ObjectAttribute
+						title="Created at"
+						text="{
+							path: 'CreatedAt',
+							type: 'sap.ui.model.odata.type.Date'
+						}"
+					/>
+				</attributes>
+			</ObjectListItem>
+		</List>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					icon="sap-icon://add"
+					text="Create Order"
+					press="onButtonCreateOrderPress"
+				/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

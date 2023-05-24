@@ -39,9 +39,9 @@ interface Manifest {
 				type: "com.insidettrack.demo.mvc.base.model.ODataModel";
 				settings: { useBatch: true; defaultCountMode: "None"; refreshAfterChange: false };
 			};
-			MasterModel: { type: "com.insidettrack.demo.mvc.master.model.MasterModel" };
-			DetailModel: { type: "com.insidettrack.demo.mvc.detail.model.DetailModel" };
-			SupportModel: { type: "sap.ui.model.json.JSONModel" };
+			MasterModel: { type: "com.insidettrack.demo.mvc.master.model.OrderModel" };
+			DetailModel: { type: "com.insidettrack.demo.mvc.detail.model.OrderItemModel" };
+			BaseModel: { type: "com.insidettrack.demo.mvc.base.model.BaseModel" };
 			ErrorModel: { type: "sap.ui.model.json.JSONModel" };
 			ConstantsModel: { type: "com.insidettrack.demo.mvc.base.model.ConstantsModel" };
 		};
