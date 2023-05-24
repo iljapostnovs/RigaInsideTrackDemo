@@ -23,6 +23,38 @@ export default class Order extends BaseController<OrderView & OrderDataDialogFra
 
 		this.getRouter().getRoute("Order")?.attachMatched(this._onRouteMatched, this);
 		this._loadOrders();
+
+		sap.ui.getCore().getEventBus().subscribe("OrderApp", "ActionFinished", this._onActionFinished, this);
+	}
+
+	private _onActionFinished(sApp: string, sChannel: string, mData: { OrderID: number }) {
+		this._rereadOrder(mData.OrderID);
+	}
+
+	private _rereadOrder(iOrderId: number) {
+		const oODataModel = this.getModel("ODataModel");
+
+		this.getView()?.setBusy(true);
+		const sPath = oODataModel?.createKey("/Orders", { OrderID: iOrderId });
+		if (!sPath) {
+			return;
+		}
+		oODataModel?.read(sPath, {
+			success: (mRefreshedOrder: OrderType) => {
+				const aOrders = this.getModel("OrderModel")?.getProperty<OrderType[]>("/Orders");
+				const mOldOrder = aOrders?.find(mOrder => mOrder.OrderID === iOrderId);
+				const iIndexOfOldOrder = mOldOrder && aOrders?.indexOf(mOldOrder);
+				if (iIndexOfOldOrder !== undefined) {
+					aOrders?.splice(iIndexOfOldOrder, 1, mRefreshedOrder);
+					this.getModel("OrderModel")?.setProperty("/Orders", aOrders);
+				}
+				this.getView()?.setBusy(false);
+			},
+			error: () => {
+				// do something
+				this.getView()?.setBusy(false);
+			}
+		});
 	}
 
 	private _loadOrders() {

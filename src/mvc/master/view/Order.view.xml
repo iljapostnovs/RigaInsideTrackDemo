@@ -31,7 +31,32 @@
 			<ObjectListItem
 				title="{Description}"
 				icon="sap-icon://document"
+				highlight="{=
+					${State} === '1' ? 'Warning' :
+					${State} === '2' ? 'Success' :
+					${State} === '3' ? 'Error' :
+					${State} === '4' ? 'Success' :
+					'Information'
+				}"
 			>
+				<firstStatus>
+					<ObjectStatus
+						text="{=
+							${State} === '1' ? 'In process' :
+							${State} === '2' ? 'Approved' :
+							${State} === '3' ? 'Rejected' :
+							${State} === '4' ? 'Posted' :
+							'Information'
+						}"
+						state="{=
+							${State} === '1' ? 'Warning' :
+							${State} === '2' ? 'Success' :
+							${State} === '3' ? 'Error' :
+							${State} === '4' ? 'Success' :
+							'Information'
+						}"
+					/>
+				</firstStatus>
 				<attributes>
 					<ObjectAttribute
 						title="ID"

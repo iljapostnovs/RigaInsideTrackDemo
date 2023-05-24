@@ -18,6 +18,11 @@ export default class Component extends UIComponent {
 
 	override init() {
 		super.init();
-		this.getRouter().initialize();
+
+		void this.getModel("ODataModel")
+			.metadataLoaded(true)
+			.then(() => {
+				this.getRouter().initialize();
+			});
 	}
 }

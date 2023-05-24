@@ -5,7 +5,58 @@
 	displayBlock="true"
 	busyIndicatorDelay="0"
 >
-	<Page backgroundDesign="Transparent">
-		<Text text="Hello World!"/>
+	<Page
+		backgroundDesign="Transparent"
+		title="Order: {ODataModel>Description}"
+	>
+		<Table
+			id="idTableOrderItems"
+			fixedLayout="false"
+			items="{/OrderItems}"
+			alternateRowColors="true"
+		>
+			<columns>
+				<Column>
+					<Label text="Product"/>
+				</Column>
+				<Column>
+					<Label text="Quantity"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{Product/ProductName} {ProductID}"/>
+					<Text text="{
+						path: 'Quantity',
+						type: 'sap.ui.model.odata.type.Decimal'
+					}"/>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
+				<Button
+					type="Accept"
+					text="Approve"
+					icon="sap-icon://accept"
+					press="onButtonApprovePress"
+				/>
+				<Button
+					type="Reject"
+					text="Reject"
+					icon="sap-icon://sys-cancel"
+					press="onButtonRejectPress"
+				/>
+				<ToolbarSeparator/>
+				<Button
+					type="Accept"
+					text="Post"
+					icon="sap-icon://product"
+					press="onButtonPostPress"
+				/>
+			</Toolbar>
+		</footer>
 	</Page>
 </mvc:View>

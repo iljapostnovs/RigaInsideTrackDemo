@@ -20,6 +20,7 @@ export default class ODataModel extends V2ODataModel {
 				resolve(vData.results || vData);
 			};
 			mParameters.error = reject;
+			this.read(sPath, mParameters);
 		});
 	}
 

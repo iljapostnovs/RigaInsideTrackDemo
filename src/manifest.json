@@ -115,7 +115,7 @@
 					]
 				},
 				{
-					"pattern": "OrderItem({ID})",
+					"pattern": "Order({OrderID})",
 					"name": "OrderItem",
 					"target": [
 						"Order",
