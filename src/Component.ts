@@ -1,5 +1,6 @@
 import UIComponent, { $UIComponentSettings } from "sap/ui/core/UIComponent";
 import MockServer from "./mvc/base/model/mock/MockServer";
+import CreateOrderDialog from "./mvc/master/view/control/dialog/order/CreateOrderDialog";
 
 /**
  * @namespace com.insidettrack.demo
@@ -24,5 +25,11 @@ export default class Component extends UIComponent {
 			.then(() => {
 				this.getRouter().initialize();
 			});
+	}
+
+	override destroy(bSuppressInvalidate?: boolean) {
+		CreateOrderDialog.destroyInstance();
+
+		super.destroy(bSuppressInvalidate);
 	}
 }

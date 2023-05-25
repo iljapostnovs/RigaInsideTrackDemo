@@ -15,12 +15,6 @@ declare module "com/insidettrack/demo/Component" {
 	}
 }
 
-declare module "com/insidettrack/demo/Component" {
-	export default interface Component {
-		getModel<T extends keyof ManifestModels>(sName?: T): ManifestModels[T];
-	}
-}
-
 declare module "sap/ui/model/json/JSONModel" {
 	export default interface JSONModel {
 		getProperty<T>(sPath: string, oContext?: Context): T;

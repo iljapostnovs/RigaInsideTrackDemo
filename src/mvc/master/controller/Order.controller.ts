@@ -1,19 +1,17 @@
 import { LayoutType } from "sap/f/library";
-import Dialog from "sap/m/Dialog";
 import ObjectListItem from "sap/m/ObjectListItem";
 import Event from "sap/ui/base/Event";
 import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 import { Order as OrderType } from "../../../typedef/ODataModelTypes";
 import { OrderDataDialogFragment, OrderView } from "../../../typedef/ViewIds";
 import BaseController from "../../base/controller/BaseController";
+import CreateOrderDialog from "../view/control/dialog/order/CreateOrderDialog";
 
 /**
  * @namespace com.insidettrack.demo.mvc.master.controller
  * @ui5model {com.insidettrack.demo.mvc.master.model.OrderModel}
  */
 export default class Order extends BaseController<OrderView & OrderDataDialogFragment> {
-	private _oOrderDataDialog?: Dialog;
-
 	override onInit() {
 		super.onInit();
 
@@ -42,31 +40,9 @@ export default class Order extends BaseController<OrderView & OrderDataDialogFra
 	}
 
 	async onButtonCreateOrderPress() {
-		if (!this._oOrderDataDialog) {
-			this._oOrderDataDialog = await (this.loadFragment({
-				name: "com.insidettrack.demo.mvc.master.view.fragment.OrderDataDialog",
-				addToDependents: true,
-				autoPrefixId: true
-			}) as Promise<Dialog>);
-		}
+		const mOrderData = await CreateOrderDialog.getInstance().askUserToFillOrderData();
 
-		this._oOrderDataDialog.open();
-	}
-
-	protected _onDialogButtonOkPress() {
-		this._oOrderDataDialog?.close();
-
-		void this._applyBusy(async () => {
-			const mOrderData = {
-				Description: this.byId("idInputDescription").getValue(),
-				Vendor: this.byId("idInputVendor").getValue()
-			};
-			await this.getModel("OrderModel")?.createOrder(mOrderData);
-		});
-	}
-
-	protected _onDialogButtonClosePress() {
-		this._oOrderDataDialog?.close();
+		await this.getModel("OrderModel")?.createOrder(mOrderData);
 	}
 
 	onDatePickerChange() {

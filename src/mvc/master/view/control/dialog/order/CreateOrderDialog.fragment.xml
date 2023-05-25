@@ -11,11 +11,13 @@
 			<Input
 				id="idInputDescription"
 				maxLength="50"
+				value="{/Description}"
 			/>
 			<Label text="Vendor"/>
 			<Input
 				id="idInputVendor"
 				maxLength="50"
+				value="{/Vendor}"
 			/>
 		</VBox>
 		<buttons>
