@@ -1,6 +1,6 @@
 import { LayoutType } from "sap/f/library";
 import Event from "sap/ui/base/Event";
-import { Order, OrderItem as OrderItemType } from "../../../typedef/ODataModelTypes";
+import { Order } from "../../../typedef/ODataModelTypes";
 import { OrderItemView } from "../../../typedef/ViewIds";
 import BaseController from "../../base/controller/BaseController";
 
@@ -21,7 +21,7 @@ export default class OrderItem extends BaseController<OrderItemView> {
 		const mArgs = oEvent.getParameter("arguments") as { OrderID: number };
 
 		this._bindView(mArgs.OrderID);
-		this._loadOrderItems(mArgs.OrderID);
+		void this.getModel("OrderItemModel")?.loadOrderItems(mArgs);
 	}
 
 	private _bindView(iOrderId: number) {
@@ -31,113 +31,34 @@ export default class OrderItem extends BaseController<OrderItemView> {
 		}
 	}
 
-	private _loadOrderItems(iOrderId: number) {
-		const oODataModel = this.getModel("ODataModel");
-
-		this.getView()?.setBusy(true);
-		const sPath = oODataModel?.createKey("/Orders", { OrderID: iOrderId });
-
-		if (!sPath) {
-			return;
-		}
-		oODataModel?.read(`${sPath}/OrderItems`, {
-			success: (mResponse: { results: OrderItemType[] }) => {
-				this.getModel("OrderItemModel")?.setProperty("/OrderItems", mResponse.results);
-				this.getView()?.setBusy(false);
-			},
-			error: () => {
-				// do something
-				this.getView()?.setBusy(false);
-			},
-			urlParameters: {
-				$expand: "Product"
-			}
+	onButtonApprovePress() {
+		void this._applyAction(async mOrder => {
+			await this.getModel("OrderItemModel")?.approveOrder(mOrder);
 		});
 	}
 
-	onButtonApprovePress() {
-		const mOrder = this.getView()?.getBindingContext("ODataModel")?.getObject() as Order;
-
-		this._approveOrder(mOrder);
+	onButtonPostPress() {
+		void this._applyAction(async mOrder => {
+			await this.getModel("OrderItemModel")?.postOrder(mOrder);
+		});
 	}
 
-	private _approveOrder(mOrder: Order) {
-		const oODataModel = this.getModel("ODataModel");
+	onButtonRejectPress() {
+		void this._applyAction(async mOrder => {
+			await this.getModel("OrderItemModel")?.rejectOrder(mOrder);
+		});
+	}
 
-		this.getView()?.setBusy(true);
-
-		oODataModel?.callFunction("/ApproveOrder", {
-			method: "POST",
-			success: () => {
-				this._refreshOrderBinding();
-				this.getView()?.setBusy(false);
-				sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", { OrderID: mOrder.OrderID });
-			},
-			error: () => {
-				// do something
-				this.getView()?.setBusy(false);
-			},
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
+	private _applyAction(fnAction: (mOrder: Order) => Promise<any>) {
+		const mOrder = this.getView()?.getBindingContext("ODataModel")?.getObject() as Order;
+		return this._applyBusy(async () => {
+			await fnAction(mOrder);
+			sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", mOrder);
+			this._refreshOrderBinding();
 		});
 	}
 
 	private _refreshOrderBinding() {
 		this.getView()?.getElementBinding("ODataModel")?.refresh(true);
-	}
-
-	onButtonRejectPress() {
-		const mOrder = this.getView()?.getBindingContext("ODataModel")?.getObject() as Order;
-		this._rejectOrder(mOrder);
-	}
-
-	private _rejectOrder(mOrder: Order) {
-		const oODataModel = this.getModel("ODataModel");
-
-		this.getView()?.setBusy(true);
-
-		oODataModel?.callFunction("/RejectOrder", {
-			method: "POST",
-			success: () => {
-				this._refreshOrderBinding();
-				this.getView()?.setBusy(false);
-				sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", { OrderID: mOrder.OrderID });
-			},
-			error: () => {
-				// do something
-				this.getView()?.setBusy(false);
-			},
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
-		});
-	}
-
-	onButtonPostPress() {
-		const mOrder = this.getView()?.getBindingContext("ODataModel")?.getObject() as Order;
-		this._postOrder(mOrder);
-	}
-
-	private _postOrder(mOrder: Order) {
-		const oODataModel = this.getModel("ODataModel");
-
-		this.getView()?.setBusy(true);
-
-		oODataModel?.callFunction("/PostOrder", {
-			method: "POST",
-			success: () => {
-				this._refreshOrderBinding();
-				this.getView()?.setBusy(false);
-				sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", { OrderID: mOrder.OrderID });
-			},
-			error: () => {
-				// do something
-				this.getView()?.setBusy(false);
-			},
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
-		});
 	}
 }

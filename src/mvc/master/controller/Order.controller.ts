@@ -65,15 +65,6 @@ export default class Order extends BaseController<OrderView & OrderDataDialogFra
 		});
 	}
 
-	private async _applyBusy<T>(fnAnything: () => Promise<T>) {
-		this.getView()?.setBusy(true);
-		try {
-			return await fnAnything();
-		} finally {
-			this.getView()?.setBusy(false);
-		}
-	}
-
 	protected _onDialogButtonClosePress() {
 		this._oOrderDataDialog?.close();
 	}

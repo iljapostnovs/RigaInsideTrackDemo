@@ -1,9 +1,9 @@
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import UI5Element from "sap/ui/core/Element";
+import UIComponent from "sap/ui/core/UIComponent";
 import Controller from "sap/ui/core/mvc/Controller";
 import { ManifestModels } from "../../../typedef/ManifestModels";
 import Formatter from "./util/Formatter";
-import UIComponent from "sap/ui/core/UIComponent";
 
 /**
  * @namespace com.insidettrack.demo.mvc.base.controller
@@ -27,6 +27,15 @@ export default abstract class BaseController<ViewFragmentIds extends Record<stri
 
 	getRouter() {
 		return UIComponent.getRouterFor(this);
+	}
+
+	protected async _applyBusy<T>(fnAnything: () => Promise<T>) {
+		this.getView()?.setBusy(true);
+		try {
+			return await fnAnything();
+		} finally {
+			this.getView()?.setBusy(false);
+		}
 	}
 }
 
