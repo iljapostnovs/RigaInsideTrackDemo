@@ -1,6 +1,6 @@
 import { LayoutType } from "sap/f/library";
 import Event from "sap/ui/base/Event";
-import { Order } from "../../../typedef/ODataModelTypes";
+import { Order, OrderKeys } from "../../../typedef/ODataModelTypes";
 import { OrderItemView } from "../../../typedef/ViewIds";
 import BaseController from "../../base/controller/BaseController";
 
@@ -21,7 +21,14 @@ export default class OrderItem extends BaseController<OrderItemView> {
 		const mArgs = oEvent.getParameter("arguments") as { OrderID: number };
 
 		this._bindView(mArgs.OrderID);
-		void this.getModel("OrderItemModel")?.loadOrderItems(mArgs);
+
+		this._loadOrderItems(mArgs);
+	}
+
+	private _loadOrderItems(mOrderKeys: OrderKeys) {
+		void this._applyBusy(async () => {
+			await this.getModel("OrderItemModel")?.loadOrderItems(mOrderKeys);
+		});
 	}
 
 	private _bindView(iOrderId: number) {

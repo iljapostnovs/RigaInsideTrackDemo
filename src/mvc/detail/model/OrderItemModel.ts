@@ -1,5 +1,5 @@
 import JSONModel from "sap/ui/model/json/JSONModel";
-import { Order, OrderKeys } from "../../../typedef/ODataModelTypes";
+import { Order, OrderItem, OrderKeys } from "../../../typedef/ODataModelTypes";
 import ODataModel from "../../base/model/ODataModel";
 
 /**
@@ -39,14 +39,16 @@ export default class OrderItemModel extends JSONModel {
 		});
 	}
 
-	loadOrderItems(mOrderKeys: OrderKeys) {
+	async loadOrderItems(mOrderKeys: OrderKeys) {
 		const oODataModel = ODataModel.getInstance();
 		const sPath = oODataModel.createKey("/Orders", mOrderKeys);
 
-		return oODataModel.readAsync(`${sPath}/OrderItems`, {
+		const aOrderItems = await oODataModel.readAsync<OrderItem[]>(`${sPath}/OrderItems`, {
 			urlParameters: {
 				$expand: "Product"
 			}
 		});
+
+		this.setProperty("/OrderItems", aOrderItems);
 	}
 }
