@@ -3,7 +3,7 @@ import ObjectListItem from "sap/m/ObjectListItem";
 import Event from "sap/ui/base/Event";
 import JSONListBinding from "sap/ui/model/json/JSONListBinding";
 import { Order as OrderType } from "../../../typedef/ODataModelTypes";
-import { OrderDataDialogFragment, OrderView } from "../../../typedef/ViewIds";
+import { OrderView } from "../../../typedef/ViewIds";
 import BaseController from "../../base/controller/BaseController";
 import CreateOrderDialog from "../view/control/dialog/order/CreateOrderDialog";
 
@@ -11,7 +11,7 @@ import CreateOrderDialog from "../view/control/dialog/order/CreateOrderDialog";
  * @namespace com.insidettrack.demo.mvc.master.controller
  * @ui5model {com.insidettrack.demo.mvc.master.model.OrderModel}
  */
-export default class Order extends BaseController<OrderView & OrderDataDialogFragment> {
+export default class Order extends BaseController<OrderView> {
 	override onInit() {
 		super.onInit();
 
