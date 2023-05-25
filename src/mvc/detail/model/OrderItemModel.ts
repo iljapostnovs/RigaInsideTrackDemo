@@ -1,54 +1,34 @@
 import JSONModel from "sap/ui/model/json/JSONModel";
-import { Order, OrderItem, OrderKeys } from "../../../typedef/ODataModelTypes";
-import ODataModel from "../../base/model/ODataModel";
+import { OrderKeys } from "../../../typedef/ODataModelTypes";
+import Approve from "./action/Approve";
+import Post from "./action/Post";
+import ReadOrderItems from "./action/ReadOrderItems";
+import Reject from "./action/Reject";
+import IAction from "./action/abstract/IAction";
 
 /**
  * @namespace com.insidettrack.demo.mvc.detail.model
  */
 export default class OrderItemModel extends JSONModel {
-	rejectOrder(mOrder: Order) {
-		const oODataModel = ODataModel.getInstance();
-
-		return oODataModel.callFunctionAsync("/RejectOrder", {
-			method: "POST",
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
-		});
+	async rejectOrder(mOrder: OrderKeys) {
+		await this._executeAction(new Reject(mOrder));
 	}
 
-	postOrder(mOrder: Order) {
-		const oODataModel = ODataModel.getInstance();
-
-		return oODataModel.callFunctionAsync("/PostOrder", {
-			method: "POST",
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
-		});
+	async postOrder(mOrder: OrderKeys) {
+		await this._executeAction(new Post(mOrder));
 	}
 
-	approveOrder(mOrder: Order) {
-		const oODataModel = ODataModel.getInstance();
-
-		return oODataModel.callFunctionAsync("/ApproveOrder", {
-			method: "POST",
-			urlParameters: {
-				OrderID: mOrder.OrderID
-			}
-		});
+	async approveOrder(mOrder: OrderKeys) {
+		await this._executeAction(new Approve(mOrder));
 	}
 
 	async loadOrderItems(mOrderKeys: OrderKeys) {
-		const oODataModel = ODataModel.getInstance();
-		const sPath = oODataModel.createKey("/Orders", mOrderKeys);
-
-		const aOrderItems = await oODataModel.readAsync<OrderItem[]>(`${sPath}/OrderItems`, {
-			urlParameters: {
-				$expand: "Product"
-			}
-		});
+		const aOrderItems = await this._executeAction(new ReadOrderItems(mOrderKeys));
 
 		this.setProperty("/OrderItems", aOrderItems);
+	}
+
+	private _executeAction<T = void>(oAction: IAction<T>) {
+		return oAction.execute();
 	}
 }
