@@ -22,10 +22,8 @@ export default class OrderModel extends JSONModel {
 
 		const sPath = oODataModel.createKey("/Orders", { OrderID: iOrderId });
 		const mRefreshedOrder = await ODataModel.getInstance().readAsync<Order>(sPath);
+		this._adjustDate(mRefreshedOrder);
 
-		if (typeof mRefreshedOrder.CreatedAt === "string") {
-			mRefreshedOrder.CreatedAt = new Date(mRefreshedOrder.CreatedAt);
-		}
 		const aOrders = this.getProperty<Order[]>("/Orders");
 		const mOldOrder = aOrders?.find(mOrder => mOrder.OrderID === iOrderId);
 		const iIndexOfOldOrder = mOldOrder && aOrders?.indexOf(mOldOrder);
@@ -39,11 +37,7 @@ export default class OrderModel extends JSONModel {
 		const oODataModel = ODataModel.getInstance();
 
 		const aOrders = await oODataModel.readAsync<Order[]>("/Orders");
-		aOrders.forEach(mOrder => {
-			if (typeof mOrder.CreatedAt === "string") {
-				mOrder.CreatedAt = new Date(mOrder.CreatedAt);
-			}
-		});
+		aOrders.forEach(this._adjustDate);
 
 		this.setProperty("/Orders", aOrders);
 	}
@@ -58,13 +52,17 @@ export default class OrderModel extends JSONModel {
 			State: "1"
 		};
 		const mCreatedOrder = await oODataModel.createAsync<Order>("/Orders", mOrder);
+		this._adjustDate(mCreatedOrder);
 
-		if (typeof mCreatedOrder.CreatedAt === "string") {
-			mCreatedOrder.CreatedAt = new Date(mCreatedOrder.CreatedAt);
-		}
 		const aOrders = this.getProperty<Order[]>("/Orders");
 		aOrders?.push(mCreatedOrder);
 		this.setProperty("/Orders", aOrders);
+	}
+
+	private _adjustDate(mOrder: Order) {
+		if (typeof mOrder.CreatedAt === "string") {
+			mOrder.CreatedAt = new Date(mOrder.CreatedAt);
+		}
 	}
 
 	generateOrderListFilters() {
