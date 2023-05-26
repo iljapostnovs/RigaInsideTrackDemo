@@ -3,12 +3,13 @@ import Event from "sap/ui/base/Event";
 import { Order, OrderKeys } from "../../../typedef/ODataModelTypes";
 import { OrderItemView } from "../../../typedef/ViewIds";
 import BaseController from "../../base/controller/BaseController";
+import OrderItemModel from "../model/OrderItemModel";
 
 /**
  * @namespace com.insidettrack.demo.mvc.detail.controller
  * @ui5model {com.insidettrack.demo.mvc.detail.model.OrderItemModel}
  */
-export default class OrderItem extends BaseController<OrderItemView> {
+export default class OrderItem extends BaseController<OrderItemView, OrderItemModel> {
 	override onInit() {
 		super.onInit();
 
@@ -22,13 +23,11 @@ export default class OrderItem extends BaseController<OrderItemView> {
 
 		this._bindView(mArgs.OrderID);
 
-		this._loadOrderItems(mArgs);
+		void this._loadOrderItems(mArgs);
 	}
 
 	private _loadOrderItems(mOrderKeys: OrderKeys) {
-		void this._applyBusy(async () => {
-			await this.getModel("OrderItemModel")?.loadOrderItems(mOrderKeys);
-		});
+		return this.busify(this.getModel().loadOrderItems(mOrderKeys));
 	}
 
 	private _bindView(iOrderId: number) {
@@ -40,29 +39,29 @@ export default class OrderItem extends BaseController<OrderItemView> {
 
 	onButtonApprovePress() {
 		void this._applyAction(async mOrder => {
-			await this.getModel("OrderItemModel")?.approveOrder(mOrder);
+			await this.getModel().approveOrder(mOrder);
 		});
 	}
 
 	onButtonPostPress() {
 		void this._applyAction(async mOrder => {
-			await this.getModel("OrderItemModel")?.postOrder(mOrder);
+			await this.getModel().postOrder(mOrder);
 		});
 	}
 
 	onButtonRejectPress() {
 		void this._applyAction(async mOrder => {
-			await this.getModel("OrderItemModel")?.rejectOrder(mOrder);
+			await this.getModel().rejectOrder(mOrder);
 		});
 	}
 
-	private _applyAction(fnAction: (mOrder: Order) => Promise<any>) {
+	private async _applyAction(fnAction: (mOrder: Order) => Promise<any>) {
 		const mOrder = this.getView()?.getBindingContext("ODataModel")?.getObject() as Order;
-		return this._applyBusy(async () => {
-			await fnAction(mOrder);
-			sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", mOrder);
-			this._refreshOrderBinding();
-		});
+
+		await this.busify(fnAction(mOrder));
+
+		sap.ui.getCore().getEventBus().publish("OrderApp", "ActionFinished", mOrder);
+		this._refreshOrderBinding();
 	}
 
 	private _refreshOrderBinding() {
