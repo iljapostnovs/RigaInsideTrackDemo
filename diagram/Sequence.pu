@@ -1,0 +1,14 @@
+@startuml Sequence
+scale 1024*1024
+
+' Master.controller -> ODataModel : read
+' ODataModel --> Master.controller: Orders
+' Master.controller -> JSONModel : setProperty
+' JSONModel -> Master.view : bind
+
+' Master.controller -> MasterModel : fetchOrders
+' MasterModel -> ODataModel: read
+' MasterModel <-- ODataModel: Orders
+' MasterModel -> MasterModel: setProperty
+' MasterModel -> Master.view : bind
+@enduml
